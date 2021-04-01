@@ -5,7 +5,9 @@ import java.io.*;
 // signal names without dot notation
 class QS extends Proc{
 	public int numberInQueue = 0, accumulated, noMeasurements;
+	public double scaleFactor = 1;
 	public Proc sendTo;
+
 	Random slump = new Random();
 
 	public void TreatSignal(Signal x){
@@ -24,7 +26,7 @@ class QS extends Proc{
 					SignalList.SendSignal(ARRIVAL, sendTo, time);
 				}
 				if (numberInQueue > 0){
-					SignalList.SendSignal(READY, this, time + 0.2*slump.nextDouble());
+					SignalList.SendSignal(READY, this, time + 0.2*scaleFactor*slump.nextDouble());
 				}
 			} break;
 

@@ -1,5 +1,4 @@
 import java.util.*;
-import java.io.*;
 
 class State extends GlobalSimulation{
 	
@@ -7,7 +6,7 @@ class State extends GlobalSimulation{
 	// e.g. for measurements
 	public int numberInQueue = 0, accumulated = 0, noMeasurements = 0;
 
-	Random slump = new Random(); // This is just a random number generator
+	Random rand = new Random(); // This is just a random number generator
 	
 	
 	// The following method is called by the main program each time a new event has been fetched
@@ -30,23 +29,26 @@ class State extends GlobalSimulation{
 	// The following methods defines what should be done when an event takes place. This could
 	// have been placed in the case in treatEvent, but often it is simpler to write a method if 
 	// things are getting more complicated than this.
-	
+
+	// Event of Queue-Arrival
 	private void arrival(){
 		if (numberInQueue == 0)
-			insertEvent(READY, time + 2*slump.nextDouble());
+			insertEvent(READY, time + 2* rand.nextDouble());
 		numberInQueue++;
-		insertEvent(ARRIVAL, time + 2.5*slump.nextDouble());
+		insertEvent(ARRIVAL, time + 2*0.8* rand.nextDouble());
 	}
-	
+
+	// Event of Service-Departure
 	private void ready(){
 		numberInQueue--;
 		if (numberInQueue > 0)
-			insertEvent(READY, time + 2*slump.nextDouble());
+			insertEvent(READY, time + 2* rand.nextDouble());
 	}
-	
+
+	// Event of Sampling
 	private void measure(){
 		accumulated = accumulated + numberInQueue;
 		noMeasurements++;
-		insertEvent(MEASURE, time + slump.nextDouble()*10);
+		insertEvent(MEASURE, time + rand.nextDouble()*10);
 	}
 }
