@@ -24,8 +24,8 @@ public class MainSimulation extends Global{
 
     	//Här nedan skapas de processinstanser som behövs och parametrar i dem ges värden.
 
-    	QS Q1 = new QS();
-    	QS Q2 = new QS();
+    	QS Q1 = new QS(0);
+    	QS Q2 = new QS(0);
 
     	//Now time before READY takes 2 times longer
 		Q2.scaleFactor = 2;
