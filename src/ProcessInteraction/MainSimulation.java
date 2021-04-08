@@ -1,4 +1,3 @@
-import java.util.*;
 import java.io.*;
 
 /*
@@ -28,7 +27,6 @@ public class MainSimulation extends Global{
     	QS Q2 = new QS(0);
 
     	//Now time before READY takes 2 times longer
-		Q2.scaleFactor = 2;
 
 		Q1.sendTo = Q2;
 		Q2.sendTo = null;
@@ -52,8 +50,8 @@ public class MainSimulation extends Global{
 
     	}
     	//Slutligen skrivs resultatet av simuleringen ut nedan:
-    	System.out.println("Mean number of customers in queuing system 1: " + 1.0*Q1.accumulated/Q1.noMeasurements);
-		System.out.println("Mean number of customers in queuing system 2: " + 1.0*Q2.accumulated/Q2.noMeasurements);
+    	System.out.println("Mean number of customers in queuing system 1: " + 1.0*Q1.accNoInQueue /Q1.noMeasurements);
+		System.out.println("Mean number of customers in queuing system 2: " + 1.0*Q2.accNoInQueue /Q2.noMeasurements);
 
 	}
 }
