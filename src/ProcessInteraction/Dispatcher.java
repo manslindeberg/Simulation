@@ -13,12 +13,12 @@ public class Dispatcher extends Proc {
     private int bound;
     private int roundRobinIndex = 0;
 
-    private ArrayList<QS> queues;
+    private ArrayList<Queue> queues;
 
     private Random randArrival = new Random();
     private Random randIndex = new Random();
 
-    public Dispatcher(ArrayList<QS> queues, int bound, int mode) {
+    public Dispatcher(ArrayList<Queue> queues, int bound, int mode) {
         this.queues = queues;
         this.bound = bound;
         this.mode = mode;
