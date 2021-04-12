@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class HomeAssignmentOne {
+public class LoadBalancerSimulation {
 
     private static final int SIMULATIONTIME = 200000;
     private static final double QUEUESERVICETIME = 0.5; // Exponential distribution
-    private static final double DISPARRIVALTIME = 0.12; // Uniform distribution
+    private static double DISPARRIVALTIME = 0.12; // Uniform distribution
     private static final int QUEUEBOUND = 5;
 
     public static void main(String[] args) {
@@ -22,13 +22,13 @@ public class HomeAssignmentOne {
         }
 
         // Load-balancer / Dispatcher
-        Dispatcher disp = new Dispatcher(queues, QUEUEBOUND, Global.ROUNDROBIN);
+        Dispatcher disp = new Dispatcher(queues, QUEUEBOUND, Global.LEASTJOBAMOUNT);
 
         Gen Generator = new Gen();
-        Generator.lambda = (1/DISPARRIVALTIME);
+        Generator.lambda = (1 / DISPARRIVALTIME);
         Generator.sendTo = disp;
 
-        // KICK-START
+        // Kick-starts simulations by starting generator and measurement
         SignalList.SendSignal(Global.READY, Generator, Global.time);
         queues.forEach(queue -> SignalList.SendSignal(Global.MEASURE, queue, Global.time));
 
@@ -38,25 +38,29 @@ public class HomeAssignmentOne {
             actSignal.destination.TreatSignal(actSignal);
         }
 
-        //TODO
-        //- Make sure that the system follows Little's Law?
         double totalMeanCustomers = 0;
         double totalMeanTime = 0;
+        double totalMeanArrivalTime = 0;
 
+        /* The mean number of customers per timeunit aswell as the mean time in queue is calculated for each queue */
         for (QS queue : queues) {
             double meanCustomers = 1.0 * queue.accNoInQueue / queue.noMeasurements;
             double meanTime = 1.0 * ((queue.accQueueTime / queue.noMeasurements) + QUEUESERVICETIME);
-            System.out.println("Mean number of customers in queuing system " + (queues.indexOf(queue) + 1) + " :" + meanCustomers);
-            System.out.println("Mean time per customer in quing system " + (queues.indexOf(queue) + 1) + " :" + meanTime);
-            System.out.println("Mean arrival time per queue:" + 1.0*(queue.accTimearrival)/ queue.noMeasurements);
-            System.out.println("--------------------------------------------------------------------");
+            double meanArrivalTime = 1.0 * (queue.accTimearrival) / queue.noMeasurements;
 
             totalMeanCustomers = totalMeanCustomers + meanCustomers;
             totalMeanTime = totalMeanTime + meanTime;
+            totalMeanArrivalTime = totalMeanArrivalTime + meanArrivalTime;
         }
 
-        totalMeanTime = totalMeanTime/QUEUEBOUND;
-        System.out.println(" Little's Law - Effective rate = " + DISPARRIVALTIME + " L/W = " + 1/(totalMeanCustomers/totalMeanTime));
+        System.out.println("Mean number of customers in queuing system: " + totalMeanCustomers/QUEUEBOUND);
+        System.out.println("Mean time per customer in quing system: " + totalMeanTime/QUEUEBOUND);
+        System.out.println("Mean arrival time per queue:" + totalMeanArrivalTime/QUEUEBOUND);
+        System.out.println("--------------------------------------------------------------------");
+        totalMeanTime = totalMeanTime / QUEUEBOUND; // mean time in queue per job is averaged over all queues
+
+        /* Little's Law */
+        System.out.println(" Little's Law - Effective rate = " + DISPARRIVALTIME + " L/W = " + 1 / (totalMeanCustomers / totalMeanTime));
 
     }
 }

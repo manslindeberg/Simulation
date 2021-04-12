@@ -1,117 +1,212 @@
 
 PROCESS INTERACTION ASSIGNMENT 1.5 DISPATCHER RESULTS
 
-INTERARRIVALTIME = 0.11s
-
+0.11s
 RANDOM
-Mean number of customers in queuing system 1 :10.349017337578728
+Mean number of customers in queuing system 1 :9.540962948702242
+Mean time per customer in quing system 1 :4.852049257353194
+Mean arrival time per queue:0.550168957196169
 --------------------------------------------------------------------
-Mean number of customers in queuing system 2 :9.404230352629678
+Mean number of customers in queuing system 2 :8.939953290891724
+Mean time per customer in quing system 2 :4.543457158600719
+Mean arrival time per queue:0.5507627336387229
 --------------------------------------------------------------------
-Mean number of customers in queuing system 3 :9.238968452679018
+Mean number of customers in queuing system 3 :8.807421800853172
+Mean time per customer in quing system 3 :4.5010757474921546
+Mean arrival time per queue:0.5518503580645211
 --------------------------------------------------------------------
-Mean number of customers in queuing system 4 :9.136592494719878
+Mean number of customers in queuing system 4 :9.460987693223395
+Mean time per customer in quing system 4 :4.792059548978577
+Mean arrival time per queue:0.5506459498447365
 --------------------------------------------------------------------
-Mean number of customers in queuing system 5 :9.055473721128314
+Mean number of customers in queuing system 5 :9.036062836229826
+Mean time per customer in quing system 5 :4.577453564060778
+Mean arrival time per queue:0.548993627843084
 --------------------------------------------------------------------
+ Little's Law - Effective rate = 0.11 L/W = 0.10163109237771425
 
-ROUND ROBIN
+ROUNDROBIN
+Mean number of customers in queuing system 1 :5.475706434754817
+Mean time per customer in quing system 1 :2.9824525445516574
+Mean arrival time per queue:0.5502326442108205
+--------------------------------------------------------------------
+Mean number of customers in queuing system 2 :5.5153323847325195
+Mean time per customer in quing system 2 :2.9980592068110803
+Mean arrival time per queue:0.5496972227251661
+--------------------------------------------------------------------
+Mean number of customers in queuing system 3 :5.526881478537559
+Mean time per customer in quing system 3 :3.007163738278816
+Mean arrival time per queue:0.5499325540404916
+--------------------------------------------------------------------
+Mean number of customers in queuing system 4 :5.449667436848047
+Mean time per customer in quing system 4 :2.968210171914979
+Mean arrival time per queue:0.5500237738386762
+--------------------------------------------------------------------
+Mean number of customers in queuing system 5 :5.508666793286484
+Mean time per customer in quing system 5 :3.000293475198436
+Mean arrival time per queue:0.5500201696926633
+--------------------------------------------------------------------
+ Little's Law - Effective rate = 0.11 L/W = 0.10886621479959661
 
-Mean number of customers in queuing system 1 :5.353873274705022
---------------------------------------------------------------------
-Mean number of customers in queuing system 2 :5.557087699944843
---------------------------------------------------------------------
-Mean number of customers in queuing system 3 :5.472345032933322
---------------------------------------------------------------------
-Mean number of customers in queuing system 4 :5.320309312208278
---------------------------------------------------------------------
-Mean number of customers in queuing system 5 :5.352211062809174
---------------------------------------------------------------------
+ LEASTAMOUNTOFJOBS
+ Mean number of customers in queuing system 1 :2.111159766985627
+ Mean time per customer in quing system 1 :1.0655237692933233
+ Mean arrival time per queue:0.508847438761734
+ --------------------------------------------------------------------
+ Mean number of customers in queuing system 2 :2.1105332803029735
+ Mean time per customer in quing system 2 :1.0614077858285687
+ Mean arrival time per queue:0.5068430626063994
+ --------------------------------------------------------------------
+ Mean number of customers in queuing system 3 :2.11485893354208
+ Mean time per customer in quing system 3 :1.0659724735198952
+ Mean arrival time per queue:0.5086699835291629
+ --------------------------------------------------------------------
+ Mean number of customers in queuing system 4 :2.108813552538099
+ Mean time per customer in quing system 4 :1.0657082375341969
+ Mean arrival time per queue:0.5092581382116741
+ --------------------------------------------------------------------
+ Mean number of customers in queuing system 5 :2.1145555594463317
+ Mean time per customer in quing system 5 :1.0606179548645887
+ Mean arrival time per queue:0.50767960488613
+ --------------------------------------------------------------------
+  Little's Law - Effective rate = 0.11 L/W = 0.1007437493952438
 
-LEAST AMOUNT OF JOBS
-Mean number of customers in queuing system 1 :2.1064792615679693
+  0.12s
+Mean number of customers in queuing system 1 :4.619292268805978
+Mean time per customer in quing system 1 :2.4188643369602802
+Mean arrival time per queue:0.6005201476112367
 --------------------------------------------------------------------
-Mean number of customers in queuing system 2 :2.0933054978424166
+Mean number of customers in queuing system 2 :4.685148846918191
+Mean time per customer in quing system 2 :2.442343573178838
+Mean arrival time per queue:0.5975459108485172
 --------------------------------------------------------------------
-Mean number of customers in queuing system 3 :2.0993400034051417
+Mean number of customers in queuing system 3 :4.780179657490397
+Mean time per customer in quing system 3 :2.5000539095434497
+Mean arrival time per queue:0.5996375340815981
 --------------------------------------------------------------------
-Mean number of customers in queuing system 4 :2.1038798997833963
+Mean number of customers in queuing system 4 :4.538645237197149
+Mean time per customer in quing system 4 :2.3777270599610025
+Mean arrival time per queue:0.6024207271518459
 --------------------------------------------------------------------
-Mean number of customers in queuing system 5 :2.096554895727111
+Mean number of customers in queuing system 5 :4.723205564119027
+Mean time per customer in quing system 5 :2.4646862550659794
+Mean arrival time per queue:0.5994811259401628
 --------------------------------------------------------------------
+ Little's Law - Effective rate = 0.12 L/W = 0.10454406436322351
 
-INTERARRIVALTIME = 0.15s
+ ROUNDROBIN
+Mean number of customers in queuing system 1 :2.834181276612758
+Mean time per customer in quing system 1 :1.670054374675691
+Mean arrival time per queue:0.599710648867656
+--------------------------------------------------------------------
+Mean number of customers in queuing system 2 :2.7521036132651377
+Mean time per customer in quing system 2 :1.6239816175835815
+Mean arrival time per queue:0.599816647033836
+--------------------------------------------------------------------
+Mean number of customers in queuing system 3 :2.7696966515692334
+Mean time per customer in quing system 3 :1.6336575996010168
+Mean arrival time per queue:0.6001273094150154
+--------------------------------------------------------------------
+Mean number of customers in queuing system 4 :2.7583093045220806
+Mean time per customer in quing system 4 :1.629515619865748
+Mean arrival time per queue:0.5997126427511504
+--------------------------------------------------------------------
+Mean number of customers in queuing system 5 :2.8557581144956017
+Mean time per customer in quing system 5 :1.683289821362018
+Mean arrival time per queue:0.5999835834458142
+--------------------------------------------------------------------
+ Little's Law - Effective rate = 0.12 L/W = 0.1179738031900767
 
-RANDOM
-Mean number of customers in queuing system 1 :1.8286724814914725
+ LEASTJOBAMOUNT
+Mean number of customers in queuing system 1 :1.354539779253858
+Mean time per customer in quing system 1 :0.7491127263878576
+Mean arrival time per queue:0.5614374626550731
 --------------------------------------------------------------------
-Mean number of customers in queuing system 2 :1.9083932853717027
+Mean number of customers in queuing system 2 :1.3518966283827327
+Mean time per customer in quing system 2 :0.7463635676218964
+Mean arrival time per queue:0.5610067940435495
 --------------------------------------------------------------------
-Mean number of customers in queuing system 3 :1.873153561507837
+Mean number of customers in queuing system 3 :1.355704765195099
+Mean time per customer in quing system 3 :0.7469983063077317
+Mean arrival time per queue:0.5607503878531112
 --------------------------------------------------------------------
-Mean number of customers in queuing system 4 :1.8354792417232833
+Mean number of customers in queuing system 4 :1.3525460758360892
+Mean time per customer in quing system 4 :0.7455231989381466
+Mean arrival time per queue:0.5605469642410018
 --------------------------------------------------------------------
-Mean number of customers in queuing system 5 :1.8766979729122792
+Mean number of customers in queuing system 5 :1.3531649516682258
+Mean time per customer in quing system 5 :0.746999664389358
+Mean arrival time per queue:0.5619793240847957
 --------------------------------------------------------------------
+ Little's Law - Effective rate = 0.12 L/W = 0.11037467583761827
 
-ROUND ROBIN
-Mean number of customers in queuing system 1 :1.1907521393184206
---------------------------------------------------------------------
-Mean number of customers in queuing system 2 :1.2018743616957366
---------------------------------------------------------------------
-Mean number of customers in queuing system 3 :1.1925678713816086
---------------------------------------------------------------------
-Mean number of customers in queuing system 4 :1.2002298735695367
---------------------------------------------------------------------
-Mean number of customers in queuing system 5 :1.2058139767921918
---------------------------------------------------------------------
+ 2.0
+ RANDOM
+ Mean number of customers in queuing system 1 :0.05158105630249162
+ Mean time per customer in quing system 1 :0.5008139902578046
+ Mean arrival time per queue:10.056247896789209
+ --------------------------------------------------------------------
+ Mean number of customers in queuing system 2 :0.05240785055048372
+ Mean time per customer in quing system 2 :0.5009106860386494
+ Mean arrival time per queue:10.08227805404471
+ --------------------------------------------------------------------
+ Mean number of customers in queuing system 3 :0.051878537570751414
+ Mean time per customer in quing system 3 :0.5009255622394729
+ Mean arrival time per queue:9.767036285737818
+ --------------------------------------------------------------------
+ Mean number of customers in queuing system 4 :0.051870850331973445
+ Mean time per customer in quing system 4 :0.5010109480032029
+ Mean arrival time per queue:9.98657264273009
+ --------------------------------------------------------------------
+ Mean number of customers in queuing system 5 :0.050634648199335414
+ Mean time per customer in quing system 5 :0.5007624682808749
+ Mean arrival time per queue:10.114000921720669
+ --------------------------------------------------------------------
+  Little's Law - Effective rate = 2.0 L/W = 1.9386113934196638
 
-LEAST AMOUNT OF JOBS
-Mean number of customers in queuing system 1 :0.7878267639514108
+  ROUNDROBIN
+Mean number of customers in queuing system 1 :0.049751753211724044
+Mean time per customer in quing system 1 :0.5000029166838013
+Mean arrival time per queue:10.032626939507667
 --------------------------------------------------------------------
-Mean number of customers in queuing system 2 :0.7878378918746002
+Mean number of customers in queuing system 2 :0.05004289462429061
+Mean time per customer in quing system 2 :0.5000049653020703
+Mean arrival time per queue:10.031817946442182
 --------------------------------------------------------------------
-Mean number of customers in queuing system 3 :0.786015653969113
+Mean number of customers in queuing system 3 :0.049615094113115814
+Mean time per customer in quing system 3 :0.5
+Mean arrival time per queue:10.029590793482274
 --------------------------------------------------------------------
-Mean number of customers in queuing system 4 :0.7894294966617359
+Mean number of customers in queuing system 4 :0.05026871165951019
+Mean time per customer in quing system 4 :0.5000090201925618
+Mean arrival time per queue:10.032534354699994
 --------------------------------------------------------------------
-Mean number of customers in queuing system 5 :0.7817487300507979
+Mean number of customers in queuing system 5 :0.04968968948945044
+Mean time per customer in quing system 5 :0.5
+Mean arrival time per queue:10.021642406452033
 --------------------------------------------------------------------
+ Little's Law - Effective rate = 2.0 L/W = 2.0050812193721397
 
-INTERARRIVALTIME = 2.0s
+LEASTJOBAMOUNT
 
-RANDOM
-Mean number of customers in queuing system 1 :0.05124766032410141
+Mean number of customers in queuing system 1 :0.04998761692004033
+Mean time per customer in quing system 1 :0.5
+Mean arrival time per queue:10.062935933983855
 --------------------------------------------------------------------
-Mean number of customers in queuing system 2 :0.052308153477218226
+Mean number of customers in queuing system 2 :0.0501471235838104
+Mean time per customer in quing system 2 :0.5
+Mean arrival time per queue:9.92068056202192
 --------------------------------------------------------------------
-Mean number of customers in queuing system 3 :0.0514985014985015
+Mean number of customers in queuing system 3 :0.050404858299595144
+Mean time per customer in quing system 3 :0.5
+Mean arrival time per queue:9.819604856612123
 --------------------------------------------------------------------
-Mean number of customers in queuing system 4 :0.05080967612954818
+Mean number of customers in queuing system 4 :0.04989722482008092
+Mean time per customer in quing system 4 :0.5
+Mean arrival time per queue:10.187376228392711
 --------------------------------------------------------------------
-Mean number of customers in queuing system 5 :0.051828292526804286
+Mean number of customers in queuing system 5 :0.04989224515103179
+Mean time per customer in quing system 5 :0.5
+Mean arrival time per queue:10.167939944373256
 --------------------------------------------------------------------
-
-ROUND ROBIN
-Mean number of customers in queuing system 1 :0.049152135658294675
---------------------------------------------------------------------
-Mean number of customers in queuing system 2 :0.04949145748785009
---------------------------------------------------------------------
-Mean number of customers in queuing system 3 :0.04971829297530568
---------------------------------------------------------------------
-Mean number of customers in queuing system 4 :0.049964982491245626
---------------------------------------------------------------------
-Mean number of customers in queuing system 5 :0.05086646177256755
---------------------------------------------------------------------
-
-LEAST AMOUNT OF JOBS
-Mean number of customers in queuing system 1 :0.04943548064219082
---------------------------------------------------------------------
-Mean number of customers in queuing system 2 :0.051010702736256144
---------------------------------------------------------------------
-Mean number of customers in queuing system 3 :0.05101439431020188
---------------------------------------------------------------------
-Mean number of customers in queuing system 4 :0.0493088529066324
---------------------------------------------------------------------
-Mean number of customers in queuing system 5 :0.04992810353091548
---------------------------------------------------------------------
+ Little's Law - Effective rate = 2.0 L/W = 1.9973709104086914
