@@ -1,18 +1,20 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/* This class defines a "Controller" that controls a set of rules applied on a system of "Components". In this
+* scenareio, the controller controls if either component with index 1 or 3 have failed. If 1 have failed,
+* then also 2 & 5 fails and if 3 fails then also 4 fails. It then sends a FAIL signal to the components. */
+
 public class Controller extends Proc {
 
-    public Proc sendTo;
     public boolean systemUp;
     public double systemUpTime;
 
-    private Random rand = new Random();
     private ArrayList<Component> components;
+    private boolean oneFailed = false;  // State variable that keeps track of if component 1 has failed before control or not
+    private boolean threeFailed = false; // State variable that keeps track of if component 3 has failed before control or not
 
-    private boolean oneFailed = false;
-    private boolean threeFailed = false;
-
+    /* Constructor*/
     public Controller(ArrayList<Component> compontents) {
         this.components = compontents;
     }
@@ -20,6 +22,7 @@ public class Controller extends Proc {
     public void TreatSignal(Signal x) {
         switch (x.signalType) {
 
+            // Controls the component system rules
             case CONTROL: {
 
                 if (!oneFailed) {
@@ -46,7 +49,7 @@ public class Controller extends Proc {
                         threeFailed = true;
                     }
                 }
-
+                // When both component 1 and 3 have failed we stop controlling the system
                 if (!(oneFailed && threeFailed)) {
                     SignalList.SendSignal(CONTROL, this, time + 1);
                 }
@@ -56,18 +59,15 @@ public class Controller extends Proc {
             case MEASURE: {
                 systemUp = false;
 
-                int index = 0;
+                // Measures if there's any component that hasn't failed in time of measurement
                 for (Component component : components) {
-                    index++;
                     if (!component.failed) {
                         systemUp = true;
                         SignalList.SendSignal(MEASURE, this, time + 1);
-                    } else {
-                        //nothing happens
                     }
                 }
 
-                if (systemUp == false) {
+                if (!systemUp) {
                     systemUpTime = time;
                 }
             }

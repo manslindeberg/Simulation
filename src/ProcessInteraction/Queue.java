@@ -1,8 +1,10 @@
 import java.util.*;
 
-// This class defines a simple queuing system with one server. It inherits Proc so that we can use time and the
-// signal names without dot notation
+/* This class defines a simple queuing system with one server. It inherits Proc so that we can use time and the
+   signal names without dot notation */
+
 class Queue extends Proc implements Comparable<Queue> {
+
     public int numberInQueue = 0, accNoInQueue;
     public double accQueueTime, accTimeBetweenArrival;
     public int endingNoMeasurements = 0;
@@ -20,8 +22,7 @@ class Queue extends Proc implements Comparable<Queue> {
         switch (x.signalType) {
 
             case ARRIVAL: {
-
-                timeBetweenArrival = Global.time - arrivalTime;
+                timeBetweenArrival = Global.time - arrivalTime; // Variable that stores the time between when ARRIVAL was latest called
                 arrivalTime = Global.time;
                 numberInQueue++;
 
@@ -43,7 +44,8 @@ class Queue extends Proc implements Comparable<Queue> {
             break;
 
             case MEASURE: {
-
+                /* Measures the "ending service time" only when the store is closed. The last job is then
+                 * measured when there's no customers in the queue. */
                 if (Global.time % 24 > Global.CLOSING && numberInQueue == 0) {
 
                     endingNoMeasurements++;
@@ -54,8 +56,9 @@ class Queue extends Proc implements Comparable<Queue> {
                     SignalList.SendSignal(MEASURE, this, time + (HOURSPERDAY - OPENING));
                     arrivalTime = time + (HOURSPERDAY - OPENING);
                 } else {
+                    /* Measures the number of customers in the queue only during the opening hours & when theres jobs left in the queue. */
                     queueNoMeasurements++;
-                    accTimeBetweenArrival = accTimeBetweenArrival + timeBetweenArrival;
+                    accTimeBetweenArrival = accTimeBetweenArrival + timeBetweenArrival; // Accumulated time between arrival
                     if (numberInQueue != 0) {
                         accQueueTime = accQueueTime + 1.0 * (numberInQueue - 1) * timeBetweenArrival;
                         accNoInQueue = accNoInQueue + (numberInQueue);
@@ -67,11 +70,12 @@ class Queue extends Proc implements Comparable<Queue> {
         }
     }
 
-
+    /* Function returns a exponentially distributed number with a mean rate of lambda */
     public double nextDoubleExp(Random rand, double lambda) {
         return Math.log(1 - rand.nextDouble()) * (-lambda);
     }
 
+    /* Overrides comparable based on number of jobs in queue */
     @Override
     public int compareTo(Queue queue) {
         return (Integer.compare(this.numberInQueue, queue.numberInQueue));
