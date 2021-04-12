@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-class Gen extends Proc {
+class Generator extends Proc {
 
     Random slump = new Random();
 

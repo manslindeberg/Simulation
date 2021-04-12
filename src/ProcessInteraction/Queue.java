@@ -2,7 +2,7 @@ import java.util.*;
 
 // This class defines a simple queuing system with one server. It inherits Proc so that we can use time and the
 // signal names without dot notation
-class QS extends Proc implements Comparable<QS> {
+class Queue extends Proc implements Comparable<Queue> {
     public int numberInQueue = 0, accNoInQueue, noMeasurements;
     public double timeBetweenArrivals = 0;
     public double accQueueTime = 0;
@@ -16,7 +16,7 @@ class QS extends Proc implements Comparable<QS> {
 
     Random rand = new Random();
 
-    public QS(double serviceTime) {
+    public Queue(double serviceTime) {
         this.serviceTime = serviceTime;
     }
 
@@ -63,7 +63,7 @@ class QS extends Proc implements Comparable<QS> {
     }
 
     @Override
-    public int compareTo(QS queue) {
+    public int compareTo(Queue queue) {
         return (Integer.compare(this.numberInQueue, queue.numberInQueue));
     }
 }

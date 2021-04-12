@@ -13,9 +13,9 @@ public class LoadBalancerSimulation {
         new SignalList();
 
         // Creates 5 Queue systems and adds it to an ArrayList
-        ArrayList<QS> queues = new ArrayList<>();
+        ArrayList<Queue> queues = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            QS queue = new QS(QUEUESERVICETIME);
+            Queue queue = new Queue(QUEUESERVICETIME);
             queue.sendTo = null;
             queues.add(queue);
 
@@ -24,7 +24,7 @@ public class LoadBalancerSimulation {
         // Load-balancer / Dispatcher
         Dispatcher disp = new Dispatcher(queues, QUEUEBOUND, Global.LEASTJOBAMOUNT);
 
-        Gen Generator = new Gen();
+        Generator Generator = new Generator();
         Generator.lambda = (1 / DISPARRIVALTIME);
         Generator.sendTo = disp;
 
@@ -43,7 +43,7 @@ public class LoadBalancerSimulation {
         double totalMeanArrivalTime = 0;
 
         /* The mean number of customers per timeunit aswell as the mean time in queue is calculated for each queue */
-        for (QS queue : queues) {
+        for (Queue queue : queues) {
             double meanCustomers = 1.0 * queue.accNoInQueue / queue.noMeasurements;
             double meanTime = 1.0 * ((queue.accQueueTime / queue.noMeasurements) + QUEUESERVICETIME);
             double meanArrivalTime = 1.0 * (queue.accTimearrival) / queue.noMeasurements;

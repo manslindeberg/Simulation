@@ -23,15 +23,15 @@ public class MainSimulation extends Global{
 
     	//Här nedan skapas de processinstanser som behövs och parametrar i dem ges värden.
 
-    	QS Q1 = new QS(0);
-    	QS Q2 = new QS(0);
+    	Queue Q1 = new Queue(0);
+    	Queue Q2 = new Queue(0);
 
     	//Now time before READY takes 2 times longer
 
 		Q1.sendTo = Q2;
 		Q2.sendTo = null;
 
-		Gen Generator = new Gen();
+		Generator Generator = new Generator();
     	Generator.lambda = 9; // Generator ska generera nio kunder per sekund
     	Generator.sendTo = Q1; //De genererade kunderna ska skickas till kösystemet QS
 
