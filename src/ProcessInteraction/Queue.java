@@ -1,33 +1,40 @@
 import java.util.*;
 
-/* This class defines a simple queuing system with one server. It inherits Proc so that we can use time and the
-   signal names without dot notation */
-
+// This class defines a simple queuing system with one server. It inherits Proc so that we can use time and the
+// signal names without dot notation
 class Queue extends Proc implements Comparable<Queue> {
 
-    public int numberInQueue = 0, accNoInQueue;
-    public double accQueueTime, accTimeBetweenArrival;
-    public int endingNoMeasurements = 0;
-    public int queueNoMeasurements = 0;
+    public static final double OUTPUTRESOLUTION = 100; // measurement resolution
+    private static final double PRECISERESOLUTION = 1; // measurement resolution
 
-    public double finishedQueue = 0, accFinishedQueue;
+    public int numberInQueue = 0, accNoInQueue = 0, noMeasurements = 0, outputMeasurements = 0;
+    public double timeBetweenArrivals = 0;
+    public double accQueueTime = 0;
+    public double accTimearrival = 0;
     public Proc sendTo;
 
-    private double arrivalTime = OPENING;
-    private double timeBetweenArrival;
+    private double[][] data;
+    private double arrivalTime = 0;
+    private double serviceTime;
+    private int index;
 
     Random rand = new Random();
+
+    public Queue(double serviceTime, int index, double[][] data) {
+        this.serviceTime = serviceTime;
+        this.index = index;
+        this.data = data;
+    }
 
     public void TreatSignal(Signal x) {
         switch (x.signalType) {
 
             case ARRIVAL: {
-                timeBetweenArrival = Global.time - arrivalTime; // Variable that stores the time between when ARRIVAL was latest called
+                timeBetweenArrivals = Global.time - arrivalTime;
                 arrivalTime = Global.time;
                 numberInQueue++;
-
                 if (numberInQueue == 1) {
-                    SignalList.SendSignal(READY, this, time + (20 - 10 * rand.nextDouble()) / 60);
+                    SignalList.SendSignal(READY, this, time + nextDoubleExp(rand, serviceTime));
                 }
             }
             break;
@@ -38,44 +45,42 @@ class Queue extends Proc implements Comparable<Queue> {
                     SignalList.SendSignal(ARRIVAL, sendTo, time);
                 }
                 if (numberInQueue > 0) {
-                    SignalList.SendSignal(READY, this, time + (20 - 10 * rand.nextDouble()) / 60);
+                    SignalList.SendSignal(READY, this, time + nextDoubleExp(rand, serviceTime));
                 }
             }
             break;
 
-            case MEASURE: {
-                /* Measures the "ending service time" only when the store is closed. The last job is then
-                 * measured when there's no customers in the queue. */
-                if (Global.time % 24 > Global.CLOSING && numberInQueue == 0) {
+            case PRECISEMEASURE: {
+                noMeasurements++;
+                accTimearrival = accTimearrival + timeBetweenArrivals;
 
-                    endingNoMeasurements++;
-                    finishedQueue = Global.time % 24;
-                    accFinishedQueue = accFinishedQueue + finishedQueue;
+                if (numberInQueue != 0) {
+                    accQueueTime = accQueueTime + 1.0 * (numberInQueue - 1) * timeBetweenArrivals;
+                    accNoInQueue = accNoInQueue + numberInQueue;
+                }
+                SignalList.SendSignal(PRECISEMEASURE, this, time + PRECISERESOLUTION * rand.nextDouble());
+            }
+            break;
 
-                    // If we have measured the last customer of the day, the new measurement signal is sent at next days opening time
-                    SignalList.SendSignal(MEASURE, this, time + (HOURSPERDAY - OPENING));
-                    arrivalTime = time + (HOURSPERDAY - OPENING);
-                } else {
-                    /* Measures the number of customers in the queue only during the opening hours & when theres jobs left in the queue. */
-                    queueNoMeasurements++;
-                    accTimeBetweenArrival = accTimeBetweenArrival + timeBetweenArrival; // Accumulated time between arrival
-                    if (numberInQueue != 0) {
-                        accQueueTime = accQueueTime + 1.0 * (numberInQueue - 1) * timeBetweenArrival;
-                        accNoInQueue = accNoInQueue + (numberInQueue);
-                    }
-                    SignalList.SendSignal(MEASURE, this, time + 0.3 * rand.nextDouble());
+            case OUTPUTMEASURE: {
+                outputMeasurements++;
+                data[2 * index - 2][outputMeasurements] = numberInQueue;
+                data[2 * index - 1][outputMeasurements] = time;
+
+                if (time + OUTPUTRESOLUTION < LoadBalancerSimulation.SIMULATIONTIME) {
+                    SignalList.SendSignal(OUTPUTMEASURE, this, time + OUTPUTRESOLUTION);
                 }
             }
             break;
         }
+
     }
 
-    /* Function returns a exponentially distributed number with a mean rate of lambda */
+
     public double nextDoubleExp(Random rand, double lambda) {
         return Math.log(1 - rand.nextDouble()) * (-lambda);
     }
 
-    /* Overrides comparable based on number of jobs in queue */
     @Override
     public int compareTo(Queue queue) {
         return (Integer.compare(this.numberInQueue, queue.numberInQueue));
