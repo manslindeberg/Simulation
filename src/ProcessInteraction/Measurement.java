@@ -116,7 +116,7 @@ public class Measurement {
     }
 
 
-    // TODO
+    /* Writes matrix of data to file */
     public void printDataToFile(String fileName, String[] variableName, double[][] data) {
         SimpleFileWriter fw = new SimpleFileWriter(fileName, false);
         if (variableName.length != data.length) {

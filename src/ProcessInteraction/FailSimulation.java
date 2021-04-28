@@ -2,11 +2,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-/*
-Home Assignment 1
-           Task 7
-*/
-
 public class FailSimulation {
 
     private static final int SIMULATIONRUNS = 1000;
