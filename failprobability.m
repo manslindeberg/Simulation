@@ -39,6 +39,7 @@ theoretic = @(nosensors) 1 - exp(-2.*arrivalrate(nosensors).*transmittime);
 
 x = linspace(1000,10000,10);
 t = linspace(1000,10000,10000);
+figure(2)
 plot(t, 100.*theoretic(t), 'k--');
 hold on
 plot(x,100.*probability,'r+');

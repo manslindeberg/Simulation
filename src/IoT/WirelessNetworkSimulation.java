@@ -29,6 +29,7 @@ public class WirelessNetworkSimulation {
             if (newtime > 0 && newtime != oldtime && ((int) Global.time % 100) == 0) {
                 oldtime = newtime;
                 stop = city.stopSimulation(Global.STDDEVSTOPCONDITION, Global.ROUND);
+                System.out.println(Global.time);
             }
         }
         city.writeConfidenceInterval(Global.ROUND);

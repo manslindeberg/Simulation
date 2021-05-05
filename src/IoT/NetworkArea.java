@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 /* This class describes a communication area with a certain area that contains sensors and
 *  gateways that can be used for communication. */
@@ -11,6 +12,7 @@ public class NetworkArea {
     private Gateway gateway;                // gateway in area (only supports 1 per area) but more areas can be used
     private double[][] measurements;        // global data matrix that stores measure values in area
     private Measurement samples;            // measurement object
+    private HashSet<Sensor> sensors;       // used for sensor collision avoidance
 
     public NetworkArea(int areaX, int areaY, int noSensors) {
         this.areaX = areaX;
@@ -20,6 +22,7 @@ public class NetworkArea {
         + upper and lower confidence interval for sampled success rate */
         measurements = new double[7][noSensors];
         samples = new Measurement();
+        sensors = new HashSet<>();
     }
 
     /* Initializes Communication Area */
@@ -29,7 +32,7 @@ public class NetworkArea {
             addSensor(index); // adds sensor to random position within the city
         }
         SignalList.SendSignal(Global.CONTROL, gateway, gateway, Global.time);
-        SignalList.SendSignal(Global.SAMPLE, gateway, gateway, Global.time + 100);
+        SignalList.SendSignal(Global.SAMPLE, gateway, gateway, Global.time + Global.MEANSAMPLETIME);
     }
 
     /* Adds a gateway to area with position x and y */
@@ -77,9 +80,11 @@ public class NetworkArea {
             System.out.println("Sensor Y-coordinate is outside the area boundaries. Exiting...");
             System.exit(0);
         }
-        Sensor s = new Sensor(Global.TRANSMITTIME, Global.MEANINTERARRIVALTIME, gateway, index, measurements);
+        Sensor s = new Sensor(Global.TRANSMITTIME, Global.MEANINTERARRIVALTIME, gateway,  index, this, measurements);
         s.setRadius(Global.COMMUNICATIONRANGE);
         s.setPosition(x, y);
+        sensors.add(s);
+        SignalList.SendSignal(Global.INIT, s, s, Global.time);
     }
 
     /* Adds a sensor with index i at a uniform random position between 0 and AREAHEIGHT/AREAWIDTH */
@@ -89,12 +94,11 @@ public class NetworkArea {
                     "before adding sensors.");
             System.exit(0);
         }
-        Sensor s = new Sensor(Global.TRANSMITTIME, Global.MEANINTERARRIVALTIME, gateway, index, measurements);
+        Sensor s = new Sensor(Global.TRANSMITTIME, Global.MEANINTERARRIVALTIME, gateway, index, this, measurements);
         s.setRandomPosition(areaX, areaY);
         s.setRadius(Global.COMMUNICATIONRANGE);
-        if (s.inRange()) {
-            SignalList.SendSignal(Global.INIT, s, s, Global.time); // kick-starts the sensor transmission scheme
-        }
+        sensors.add(s);
+        SignalList.SendSignal(Global.INIT, s, s, Global.time); // kick-starts the sensor transmission scheme
     }
 
     /* Stops simulation if standard deviation stop condition is met */
@@ -138,6 +142,10 @@ public class NetworkArea {
                 "averagesuccesrate" + Integer.toString(round), "averagefailrate" + Integer.toString(round),
                 "time" + Integer.toString(round), "uppconf", "lowconf"};
         samples.printDataToFile("wireless_simulation" + Integer.toString(round) + ".m", var, measurements);
+    }
+
+    public HashSet<Sensor> getSensors() {
+       return sensors;
     }
 
     /*

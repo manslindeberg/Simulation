@@ -8,7 +8,6 @@ javac WirelessNetworkSimulation.java Config.java Gateway.java Global.java Measur
 for i in {1..10}
 do
 	echo $i
-	# run
 	let sensors=$i\*1000
 	sed -i "s/^\(NOSENSORS=\).*/\1$sensors/" config.properties
 	sed -i "s/^\(ROUND=\).*/\1$i/" config.properties

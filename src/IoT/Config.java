@@ -16,7 +16,6 @@ public class Config {
         } else {
             throw new FileNotFoundException("Configuration file not found");
         }
-
         Global.ROUND = Integer.parseInt(properties.getProperty("ROUND"));
         Global.NOSENSORS = Integer.parseInt(properties.getProperty("NOSENSORS"));
         Global.AREAHEIGHT = Integer.parseInt(properties.getProperty("AREAHEIGHT"));
@@ -28,6 +27,8 @@ public class Config {
         Global.MEANSAMPLETIME = Double.parseDouble(properties.getProperty("MEANSAMPLETIME"));
         Global.CONFIDENCELEVEL = Double.parseDouble(properties.getProperty("CONFIDENCELEVEL"));
         Global.STDDEVSTOPCONDITION = Double.parseDouble(properties.getProperty("STDDEVSTOPCONDITION"));
+        Global.LOWLIMIT = Double.parseDouble(properties.getProperty("LOWLIMIT"));
+        Global.UPLIMIT = Double.parseDouble(properties.getProperty("UPLIMIT"));
         input.close();
     }
 }

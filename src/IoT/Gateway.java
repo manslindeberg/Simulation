@@ -38,6 +38,7 @@ public class Gateway extends Proc {
             /* gateway has received the start of a sensor transmission */
             case STARTRECEIVE: {
                 assert x.source instanceof Sensor;
+                ((Sensor) x.source).transmitting = true;
                 activeSensors.add(x.source);
                 SignalList.SendSignal(STOPRECEIVE, x.source, this, time + TRANSMITTIME);
             }
@@ -46,6 +47,7 @@ public class Gateway extends Proc {
             /* gateway has ended the transmission session with the sensor */
             case STOPRECEIVE: {
                 assert x.source instanceof Sensor;
+                ((Sensor) x.source).transmitting = false;
                 if (!failedSensors.contains(x.source)) {
                     SignalList.SendSignal(TRANSMITSUCCESS, this, x.source, time);
                     accSucess++;

@@ -1,8 +1,9 @@
+import java.util.Map;
 import java.util.Random;
 
 /* This clas represents a sensor that on average sends a package every "meanSleepTime"
-* in which the transmission takes "transmitTime" seconds. Each sensor will log
-* the number of failed and successful packets.  */
+ * in which the transmission takes "transmitTime" seconds. Each sensor will log
+ * the number of failed and successful packets.  */
 public class Sensor extends Proc {
 
     private int x;                      // x coordinate in network area in m
@@ -14,21 +15,26 @@ public class Sensor extends Proc {
 
     private Random rand;
     private int index;
+    public boolean transmitting;
 
     private boolean inRange;
     private double[][] data;
+    private NetworkArea area;
+
     public Sensor(double transmitTime, double meanSleepTime,
-                  Gateway gateway, int index, double[][] data) {
+                  Gateway gateway, int index, NetworkArea area, double[][] data) {
         this.index = index;
         this.data = data;
         this.transmitTime = transmitTime;
         this.meanSleepTime = meanSleepTime;
         this.gateway = gateway;
+        this.area = area;
         rand = new Random();
+        transmitting = false;
     }
 
-    public void TreatSignal(Signal x) {
-        switch (x.signalType) {
+    public void TreatSignal(Signal signal) {
+        switch (signal.signalType) {
             /* start transmitting session with gateway station */
 
             case INIT: {
@@ -37,12 +43,33 @@ public class Sensor extends Proc {
             break;
 
             case TRANSMIT: {
-                SignalList.SendSignal(STARTRECEIVE, this, gateway, time);
-                double sleep = nextDoubleExp(rand, meanSleepTime);
-                SignalList.SendSignal(TRANSMIT, this, this, time
-                        + sleep);
+                if (!inRange()) {
+                    SignalList.SendSignal(DUMMYTRANSMIT, this, this, time + transmitTime);
+                    System.out.println("not in range: " + x + " " + y);
+                    transmitting = true;
+                } else {
+                    boolean channelBusy = false;
+
+                    for (Sensor s: area.getSensors()) {
+                        /* check if sensor is in range of sensing */
+                        if (inRange(x, y, s.getX(), s.getY())) {
+                            /* check if currently transmitting */
+                            if (s.transmitting) {
+                                channelBusy = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (channelBusy) {
+                        SignalList.SendSignal(TRANSMIT, this, this, time + backOffTime());
+                    } else {
+                        SignalList.SendSignal(STARTRECEIVE, this, gateway, time);
+                        SignalList.SendSignal(TRANSMIT, this, this, time + nextDoubleExp(rand, meanSleepTime));
+                    }
+                }
             }
             break;
+
 
             case TRANSMITFAILURE: {
                 data[NOFAILURE][index]++;
@@ -50,11 +77,17 @@ public class Sensor extends Proc {
             break;
 
             case TRANSMITSUCCESS: {
-                 data[NOSUCCESS][index]++;
+                data[NOSUCCESS][index]++;
+            }
+            break;
+
+            /* this signal is used for sensors that will transmit signals that won't reach the gateway,
+             * but still may cause other sensors to back-off their transmission */
+            case DUMMYTRANSMIT: {
+                transmitting = false;
             }
             break;
         }
-
     }
 
     public void setSleepTime(double mean) {
@@ -103,6 +136,10 @@ public class Sensor extends Proc {
     /* Determines if the sensor is in range of the gateway or not */
     private boolean inRange(int sensorX, int sensorY, int gatewayX, int gatewayY) {
         double dist = Math.sqrt(Math.pow(sensorX - gatewayX, 2) + Math.pow(sensorY - gatewayY, 2));
-        return  (dist < getRadius());
+        return (dist < getRadius());
+    }
+
+    private double backOffTime() {
+        return (rand.nextDouble() * (Global.UPLIMIT - Global.LOWLIMIT) + Global.LOWLIMIT);
     }
 }

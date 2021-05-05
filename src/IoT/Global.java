@@ -4,7 +4,7 @@ public class Global {
     public static final int
             TRANSMIT = 1, SAMPLE = 2, CONTROL = 3,
             STARTRECEIVE = 5, STOPRECEIVE = 6, TRANSMITFAILURE = 7,
-            TRANSMITSUCCESS = 8, INIT = 9;
+            TRANSMITSUCCESS = 8, INIT = 9, SENSE = 10, DUMMYTRANSMIT = 11;
 
     public static int ROUND;
     public static int AREAHEIGHT;
@@ -17,6 +17,8 @@ public class Global {
     public static double MEANSAMPLETIME;
     public static double CONFIDENCELEVEL;
     public static double STDDEVSTOPCONDITION;
+    public static double UPLIMIT;
+    public static double LOWLIMIT;
 
     public static final int NOFAILURE = 0, NOSUCCESS = 1, SAMPLEDSUCCESSRATE = 2, SAMPLEDFAILURERATE = 3,
             TIME = 4, UPPCONF = 5, LOWCONF = 6;
