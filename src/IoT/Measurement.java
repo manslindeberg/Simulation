@@ -11,6 +11,7 @@ import java.util.Arrays;
  *  90.0%
  *  80.0%
  */
+
 public class Measurement {
 
     public static final double za2_999p = 3.27;
@@ -20,10 +21,6 @@ public class Measurement {
     public static final double za2_950p = 1.96;
     public static final double za2_900p = 1.645;
     public static final double za2_800p = 1.28;
-
-    public Measurement() {
-
-    }
 
     /* Calculates the estimated mean value of data.*/
     public double mean(double[] data) {
@@ -115,8 +112,6 @@ public class Measurement {
         }
     }
 
-
-    /* Writes matrix of data to file */
     public void printDataToFile(String fileName, String[] variableName, double[][] data) {
         SimpleFileWriter fw = new SimpleFileWriter(fileName, false);
         if (variableName.length != data.length) {
