@@ -132,16 +132,15 @@ public class NetworkArea {
 
         double sampledMean = samples.mean(tmp);
         double[] conf = samples.confidenceInterval(tmp, sampledMean, Global.CONFIDENCELEVEL);
-        measurements[Global.LOWCONF][0] = conf[0];
-        measurements[Global.LOWCONF][1] = conf[1];
+        measurements[Global.LOWCONF][0] = (conf[1] - conf[0]);
     }
 
     /* Prints out the data into a MATLAB file */
     public void printDataToMatlab(int round) {
-        String[] var = {"nofailure" + Integer.toString(round), "nosuccess" + Integer.toString(round),
-                "averagesuccesrate" + Integer.toString(round), "averagefailrate" + Integer.toString(round),
-                "time" + Integer.toString(round), "uppconf" + Integer.toString(round),
-                "lowconf" + Integer.toString(round)};
+        String[] var = {"nofailureCA" + Integer.toString(round), "nosuccessCA" + Integer.toString(round),
+                "averagesuccesrateCA" + Integer.toString(round), "averagefailrateCA" + Integer.toString(round),
+                "timeCA" + Integer.toString(round), "uppconfCA" + Integer.toString(round),
+                "lowconfCA" + Integer.toString(round)};
         samples.printDataToFile("wireless_simulation" + Integer.toString(round) + ".m", var, measurements);
     }
 
