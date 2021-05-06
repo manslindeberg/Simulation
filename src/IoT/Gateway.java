@@ -19,6 +19,7 @@ public class Gateway extends Proc {
     private double accMeanFailRate = 0;
     private double accSucess = 0;
     private double accMeanSucessRate = 0;
+    private double meanFailProbability = 0;
     private int noSamples = 0;
 
 
@@ -73,9 +74,10 @@ public class Gateway extends Proc {
             break;
 
             case SAMPLE: {
+                meanFailProbability = accFailure / (accSucess + accFailure);
                 accMeanFailRate = accFailure / Global.time;
                 accMeanSucessRate = accSucess / Global.time;
-                samples[Global.SAMPLEDFAILURERATE][noSamples] = accMeanFailRate;
+                samples[Global.SAMPLEDFAILPROBABILITY][noSamples] = meanFailProbability;
                 samples[Global.SAMPLEDSUCCESSRATE][noSamples] = accMeanSucessRate;
                 samples[Global.TIME][noSamples] = time;
                 noSamples++;

@@ -100,18 +100,22 @@ public class NetworkArea {
     /* Stops simulation if standard deviation stop condition is met */
     public boolean stopSimulation(double stopDeviation, int round) {
         int size = gateway.getNoSamples();
-        double[] tmp = new double[size];
 
-        /* copy number of variables to tmp array */
-        for (int i = 0; i < size; i++) {
-            tmp[i] = measurements[Global.SAMPLEDSUCCESSRATE][i];
-        }
+        if (size > 100) {
+            double[] tmp = new double[size];
 
-        double sampledMean = samples.mean(tmp);
-        double sampledDev = samples.standardDeviation(tmp, sampledMean);
+            /* copy number of variables to tmp array */
+            for (int i = 0; i < size; i++) {
+                tmp[i] = measurements[Global.SAMPLEDSUCCESSRATE][i];
+            }
 
-        if ((sampledDev / Math.sqrt(size) < stopDeviation)) {
-            return true;
+            double sampledMean = samples.mean(tmp);
+            double sampledDev = samples.standardDeviation(tmp, sampledMean);
+
+            if ((sampledDev / Math.sqrt(size)) < stopDeviation) {
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -123,20 +127,21 @@ public class NetworkArea {
 
         /* copy number of variables to tmp array */
         for (int i = 0; i < size; i++) {
-            tmp[i] = measurements[Global.SAMPLEDSUCCESSRATE][i];
+            tmp[i] = measurements[Global.SAMPLEDFAILPROBABILITY][i];
         }
 
         double sampledMean = samples.mean(tmp);
         double[] conf = samples.confidenceInterval(tmp, sampledMean, Global.CONFIDENCELEVEL);
         measurements[Global.LOWCONF][0] = conf[0];
-        measurements[Global.LOWCONF][1] = conf[1];
+        measurements[Global.UPPCONF][0] = conf[1];
     }
 
     /* Prints out the data into a MATLAB file */
     public void printDataToMatlab(int round) {
         String[] var = {"nofailure" + Integer.toString(round), "nosuccess" + Integer.toString(round),
                 "averagesuccesrate" + Integer.toString(round), "averagefailrate" + Integer.toString(round),
-                "time" + Integer.toString(round), "uppconf", "lowconf"};
+                "time" + Integer.toString(round), "uppconf" + Integer.toString(round),
+                "lowconf" + Integer.toString(round)};
         samples.printDataToFile("wireless_simulation" + Integer.toString(round) + ".m", var, measurements);
     }
 
