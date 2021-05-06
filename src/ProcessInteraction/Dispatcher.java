@@ -6,16 +6,14 @@ import java.util.Random;
 public class Dispatcher extends Proc {
 
     public Proc sendTo;
-    public int accumulated, noMeasurements;
-    // DEFINITIONS
 
+    // DEFINITIONS
     private int mode;
     private int bound;
     private int roundRobinIndex = 0;
 
     private ArrayList<Queue> queues;
 
-    private Random randArrival = new Random();
     private Random randIndex = new Random();
 
     public Dispatcher(ArrayList<Queue> queues, int bound, int mode) {
@@ -30,13 +28,14 @@ public class Dispatcher extends Proc {
                 switch (mode) {
                     case RANDOM: {
                         sendTo = queues.get(randIndex.nextInt(bound));
-
+                        SignalList.SendSignal(ARRIVAL, sendTo, time);
                     }
                     break;
 
                     case ROUNDROBIN: {
                         roundRobinIndex = (roundRobinIndex + 1) % bound;
                         sendTo = queues.get(roundRobinIndex);
+                        SignalList.SendSignal(ARRIVAL, sendTo, time);
                     }
                     break;
 
@@ -47,7 +46,7 @@ public class Dispatcher extends Proc {
 
                         // queues with equal number of jobs in queue is uniformly distributed
                         int i = 0;
-                        while(i < bound-1) {
+                        while (i < bound - 1) {
                             if (queues.get(i).numberInQueue != queues.get(i + 1).numberInQueue) {
                                 break;
                             }
@@ -58,19 +57,11 @@ public class Dispatcher extends Proc {
                         } else {
                             sendTo = queues.get(randIndex.nextInt(i));
                         }
+                        SignalList.SendSignal(ARRIVAL, sendTo, time);
                     }
                     break;
                 }
-
-                try {
-                    SignalList.SendSignal(ARRIVAL, sendTo, time);
-                } catch (Exception e) {
-                    System.out.println("\n Missing sendTo object - Exiting...)");
-                    e.printStackTrace();
-                    System.exit(0);
-                }
             }
-            break;
         }
     }
 }

@@ -15,7 +15,7 @@ public class SignalList{
 	}
 
 	/* This is essentially a queue that is based on lowest */
-	public static void SendSignal(int type, Proc dest, double arrtime){
+	public static void SendSignal(int type, Proc dest, double arrtime) {
  	Signal dummy, predummy;
  	Signal newSignal = new Signal();
  	newSignal.signalType = type;
@@ -23,6 +23,7 @@ public class SignalList{
  	newSignal.arrivalTime = arrtime;
  	predummy = list;
  	dummy = list.next;
+
  	while ((dummy.arrivalTime < newSignal.arrivalTime) & (dummy != last)){
  		predummy = dummy;
  		dummy = dummy.next;

@@ -5,44 +5,49 @@ import java.util.*;
 class Queue extends Proc implements Comparable<Queue> {
 
     public static final double OUTPUTRESOLUTION = 100; // measurement resolution
-    private static final double PRECISERESOLUTION = 1; // measurement resolution
+    private static final double PRECISERESOLUTION = 0.1; // measurement resolution
 
     public int numberInQueue = 0, accNoInQueue = 0, noMeasurements = 0, outputMeasurements = 0;
-    public double timeBetweenArrivals = 0;
+    public double timeInQueue = 0;
     public double accQueueTime = 0;
-    public double accTimearrival = 0;
     public Proc sendTo;
 
-    private double[][] data;
-    private double arrivalTime = 0;
     private double serviceTime;
     private int index;
+    private ArrayList<Double> queueTime;
 
     Random rand = new Random();
 
-    public Queue(double serviceTime, int index, double[][] data) {
+    public Queue(double serviceTime, int index) {
         this.serviceTime = serviceTime;
         this.index = index;
-        this.data = data;
+        queueTime = new ArrayList<>();
     }
 
     public void TreatSignal(Signal x) {
         switch (x.signalType) {
 
             case ARRIVAL: {
-                timeBetweenArrivals = Global.time - arrivalTime;
-                arrivalTime = Global.time;
+                queueTime.add(time);
                 numberInQueue++;
-                if (numberInQueue == 1) {
-                    SignalList.SendSignal(READY, this, time + nextDoubleExp(rand, serviceTime));
+                // this is when queueing starts --> timestamp x.source sent it which was the dispatcher
+                if (numberInQueue == 1 ) {
+                    SignalList.SendSignal(READY, this,time + nextDoubleExp(rand, serviceTime));
                 }
             }
             break;
 
             case READY: {
                 numberInQueue--;
+                timeInQueue = time - queueTime.get(0).doubleValue();
+                if (timeInQueue > 30) {
+                    System.out.println(timeInQueue);
+                }
+                queueTime.remove(0);
+
+                // this is when we serve it -> the timestamp of when it arrival can be found from source
                 if (sendTo != null) {
-                    SignalList.SendSignal(ARRIVAL, sendTo, time);
+                    SignalList.SendSignal(ARRIVAL,null, time);
                 }
                 if (numberInQueue > 0) {
                     SignalList.SendSignal(READY, this, time + nextDoubleExp(rand, serviceTime));
@@ -52,24 +57,9 @@ class Queue extends Proc implements Comparable<Queue> {
 
             case PRECISEMEASURE: {
                 noMeasurements++;
-                accTimearrival = accTimearrival + timeBetweenArrivals;
-
-                if (numberInQueue != 0) {
-                    accQueueTime = accQueueTime + 1.0 * (numberInQueue - 1) * timeBetweenArrivals;
-                    accNoInQueue = accNoInQueue + numberInQueue;
-                }
-                SignalList.SendSignal(PRECISEMEASURE, this, time + PRECISERESOLUTION * rand.nextDouble());
-            }
-            break;
-
-            case OUTPUTMEASURE: {
-                outputMeasurements++;
-                data[2 * index - 2][outputMeasurements] = numberInQueue;
-                data[2 * index - 1][outputMeasurements] = time;
-
-                if (time + OUTPUTRESOLUTION < LoadBalancerSimulation.SIMULATIONTIME) {
-                    SignalList.SendSignal(OUTPUTMEASURE, this, time + OUTPUTRESOLUTION);
-                }
+                accQueueTime = accQueueTime + timeInQueue;
+                accNoInQueue = accNoInQueue + numberInQueue;
+                SignalList.SendSignal(PRECISEMEASURE, this, time + 2*PRECISERESOLUTION * rand.nextDouble());
             }
             break;
         }

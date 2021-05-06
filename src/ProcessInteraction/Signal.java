@@ -1,4 +1,4 @@
-// Denna klass definerar vad som ska finnas i en signal. Det som finns här är ett minimum. Man kan lägga till mer
+// Denna klass definerar vad som ska finnas i en signal. Det som finns hï¿½r ï¿½r ett minimum. Man kan lï¿½gga till mer
 // om man vill att en signal ska kunna skicka mer information.
 
 // This class defines a signal. What can be seen here is a mainimum. If one wants to add more
