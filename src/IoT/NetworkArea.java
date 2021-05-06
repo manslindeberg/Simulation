@@ -106,7 +106,10 @@ public class NetworkArea {
         int size = gateway.getNoSamples();
         double[] tmp = new double[size];
 
-        /* copy number of variables to tmp array */
+        /* copy number of variables to tmp array. OBS: we need to specify wich mean values
+        * that we will calculate the standard daviation from and use for stopping
+        * condition. Either it could be the sampled success rate / throughput, or
+        * it could be the fail probability. */
         for (int i = 0; i < size; i++) {
             tmp[i] = measurements[Global.SAMPLEDSUCCESSRATE][i];
         }
@@ -147,24 +150,4 @@ public class NetworkArea {
     public HashSet<Sensor> getSensors() {
        return sensors;
     }
-
-    /*
-    public boolean confidenceLevelOverlap() {
-        oldConfidenceInterval = newConfidenceInterval;
-        double meanNoSuccess = samples.mean(measurements[Global.NOSUCCESS]);
-        newConfidenceInterval = samples.confidenceInterval(measurements[Global.NOSUCCESS], meanNoSuccess,
-                Global.CONFIDENCELEVEL);
-
-        measurements[2][noConfidenceIntervals] = newConfidenceInterval[1]; // upper confidence level
-        measurements[3][noConfidenceIntervals] = newConfidenceInterval[0]; // lower confidence level
-        noConfidenceIntervals++;
-
-        if (newConfidenceInterval[0] > oldConfidenceInterval[1]
-        || newConfidenceInterval[1] < oldConfidenceInterval[0]) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-   */
 }
