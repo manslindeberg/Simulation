@@ -127,7 +127,7 @@ public class NetworkArea {
 
         /* copy number of variables to tmp array */
         for (int i = 0; i < size; i++) {
-            tmp[i] = measurements[Global.SAMPLEDSUCCESSRATE][i];
+            tmp[i] = measurements[Global.SAMPLEDFAILPROBABILITY][i];
         }
 
         double sampledMean = samples.mean(tmp);
@@ -140,7 +140,8 @@ public class NetworkArea {
     public void printDataToMatlab(int round) {
         String[] var = {"nofailure" + Integer.toString(round), "nosuccess" + Integer.toString(round),
                 "averagesuccesrate" + Integer.toString(round), "averagefailrate" + Integer.toString(round),
-                "time" + Integer.toString(round), "uppconf", "lowconf"};
+                "time" + Integer.toString(round), "uppconf" + Integer.toString(round),
+                "lowconf" + Integer.toString(round)};
         samples.printDataToFile("wireless_simulation" + Integer.toString(round) + ".m", var, measurements);
     }
 

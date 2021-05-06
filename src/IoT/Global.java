@@ -20,7 +20,7 @@ public class Global {
     public static double UPLIMIT;
     public static double LOWLIMIT;
 
-    public static final int NOFAILURE = 0, NOSUCCESS = 1, SAMPLEDSUCCESSRATE = 2, SAMPLEDFAILURERATE = 3,
+    public static final int NOFAILURE = 0, NOSUCCESS = 1, SAMPLEDSUCCESSRATE = 2, SAMPLEDFAILPROBABILITY = 3,
             TIME = 4, UPPCONF = 5, LOWCONF = 6;
 
     public static double time = 0; // Global time variable initialized to 0 for all Process Interaction simulations
