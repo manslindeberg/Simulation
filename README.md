@@ -138,7 +138,7 @@ current implementation.
 
 ![<span>CPU utilization per core during one simulation run demonstrates
 the waste of CPU resources as a consequence of single-threaded execution
-in its current implementation.</span>](resources_sim_crop.png)
+in its current implementation.</span>](/assets/resources_sim_crop.png)
 
 There are some limitations of this approach in it’s current
 implementations that restricts the use of multiple gateways per areas
@@ -152,26 +152,26 @@ static so that each sensor is tied to one gateway for the entire
 duration of the simulation.
 
 ## Results
-![Figure 1](assets/final_throughput.png)
+
 ![<span>Average throughput in packets per second versus number of
 sensors deployed on a network area with the gateway placed in the middle
 of the network area of size 10km x 10km and a sensor range of 7km. *No
 CA* refers to the first mode without collision avoidance, *CA 1-2*
 refers to the second mode with back-off interval between *1s* and *2s*d
-etc.</span>](final_throughput.png)
-![Figure 2](assets/failprobability_errorbars.png)
+etc.</span>](/assets/final_throughput.png)
+
 ![<span><span>Average packet loss probability versus number of sensors
 deployed on a network area with the gateway placed in the middle of the
 network area of size 10km x 10km and a sensor range of 7km. *No CA*
 refers to the first mode without collision avoidance, *CA 1-2* refers to
 the second mode with back-off interval between *1s* and *2s* etc.
 Confidence interval bars are included for each average point in the
-graph.</span></span>](failprobability_errorbars.png)
-![Figure 3](assets/final_radii.png)
+graph.</span></span>](/assets/failprobability_errorbars.png)
+
 ![<span>Average throughput in packets per second versus sensor
 communication range with *2000* sensors in *CA* mode with a back-off
 interval between *1s* and *2s*</span>. Confidence interval bars are
-included for each average point in the graph](final_radii.png)
+included for each average point in the graph](/assets/final_radii.png)
 
 ## Conclusion
 
