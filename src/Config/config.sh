@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd src/IoT
+cd ..
 
 # compilation
 javac WirelessNetworkSimulation.java Config.java Gateway.java Global.java Measurement.java NetworkArea.java Proc.java Sensor.java Signal.java Signal.java SignalList.java SimpleFileWriter.java

@@ -1,4 +1,3 @@
-import java.util.Map;
 import java.util.Random;
 
 /* This clas represents a sensor that on average sends a package every "meanSleepTime"

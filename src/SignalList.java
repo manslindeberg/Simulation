@@ -1,9 +1,5 @@
 
-/* This Class implements a list with signals using a single-linked list.
-	TODO:
-		- Make this Code prettier
-		- Attach a priority value to each Signal and sort first based on time & then on priority
-*/
+/* This Class implements a list with signals using a single-linked list.*/
 
 public class SignalList{
 	private  static Signal list, last;

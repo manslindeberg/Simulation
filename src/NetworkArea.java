@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 /* This class describes a communication area with a certain area that contains sensors and
