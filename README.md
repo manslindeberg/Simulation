@@ -1,7 +1,5 @@
 # Introduction
 
-# Task 1
-
 The purpose of this task is to create a practical simulation of a
 large-scale wireless sensor network consisting of a number of
 transmitting sensors bounded by an area. Each sensor communicates
@@ -194,6 +192,7 @@ deployed sensors, the mean sleep time and the transmission time, further
 simulation analysis could therefore be made in order to optimize the
 back-off off time for some custom setting using linear programming,
 heuristics or meta-heuristics.  
+
 Continuing with packet loss probability results in Figure
 [3](#fig:failprob), it is again evident that the simulation results
 aligns with the theoretic expectations. The results also matches the
